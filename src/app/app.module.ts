@@ -6,13 +6,17 @@ import {
   MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
   MatSortModule, MatTableModule
 } from '@angular/material';
+import { FormsModule } from '@angular/forms';
+import { StarComponent } from './star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent
+    ProductListComponent,
+    StarComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
     MatSortModule, MatTableModule

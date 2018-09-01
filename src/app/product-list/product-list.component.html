@@ -1,18 +1,39 @@
 <div class="bg">
   <h3>{{pageTitle}}</h3>
+
+
+  <div class='input-bar'>
+    <div class='filter-description'>Filter by: {{listFilter}}</div>
+    <div class='filter-input'>
+      <input type='text' [(ngModel)]='listFilter' />
+    </div>
+  </div>
+
   <mat-table class="product-table mat-elevation-z8" *ngIf="dataSource && dataSource.length" [dataSource]="dataSource">
-   
+
     <ng-container matColumnDef="imageUrl">
       <mat-header-cell *matHeaderCellDef>
-        <button>show image</button>
+        <button (click)='toggleImage()'>{{showImage? 'hide': 'show'}} image</button>
       </mat-header-cell>
-      <mat-cell *matCellDef="let product">placeholder</mat-cell>
+      <mat-cell *matCellDef="let product">
+        <img *ngIf='showImage' [src]='product.imageUrl' [title]='product.productName' />
+      </mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="productName">
-      <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Product Name</mat-header-cell>
       <mat-cell *matCellDef="let product">{{product.productName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="productCode">
+      <mat-header-cell *matHeaderCellDef>ProductCode </mat-header-cell>
+      <mat-cell *matCellDef="let product">{{product.productCode | lowercase}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+      <mat-cell *matCellDef="let product">{{product.price | currency:'USD':'symbol':'1.2-2'}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="description">
@@ -21,12 +42,17 @@
 
     </ng-container>
 
-    <ng-container matColumnDef="price">
-      <mat-header-cell *matHeaderCellDef>Duration</mat-header-cell>
-      <mat-cell class="duration-cell" *matCellDef="let product">{{product.price}}</mat-cell>
+    <ng-container matColumnDef="starRating">
+      <mat-header-cell *matHeaderCellDef>Star Rating</mat-header-cell>
+      <mat-cell class="star-rating-cell" *matCellDef="let product">
+        <app-star-component 
+        [rating]='product.starRating' 
+         (ratingClicked)='onRatingClicked($event)'>
+        </app-star-component>
+      </mat-cell>
     </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-header-row *matHeaderRowDef="displayedColumns">
+    </mat-header-row>
 
     <mat-row *matRowDef="let row; columns: displayedColumns" (click)="onRowClicked(row)">
     </mat-row>

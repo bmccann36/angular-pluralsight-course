@@ -1,0 +1,25 @@
+img {
+  width: 3em;
+}
+
+.input-bar {
+  width: 20%;
+  margin: 2em;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-description {
+  padding: 1px;
+  flex: 1;
+}
+
+.filter-input {
+  padding: 1px;
+  flex: 1;
+}
+
+.mat-header-cell {
+  font-weight: bolder;
+  font-size: 14px;
+}
